@@ -5,10 +5,10 @@ app.controller('MainCtrl', [
   function($scope){
     $scope.test = 'Hello World';
     $scope.posts = [
-      'post 1',
-      'post 2',
-      'post 3',
-      'post 4',
-      'post 5',
+      {title: 'post 1', upvotes: 23},
+      {title: 'post 2', upvotes: 55},
+      {title: 'post 3', upvotes: 11},
+      {title: 'post 4', upvotes: 41},
+      {title: 'post 5', upvotes: 36}
     ];
   }]);
