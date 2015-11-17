@@ -11,4 +11,7 @@ app.controller('MainCtrl', [
       {title: 'post 4', upvotes: 41},
       {title: 'post 5', upvotes: 36}
     ];
+    $scope.addPost = function(){
+      $scope.posts.push({title: 'A new Post!', upvotes: 0});
+    };
   }]);
