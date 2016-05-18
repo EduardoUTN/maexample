@@ -1,4 +1,20 @@
-var app = angular.module('maNews', []);
+var app = angular.module('maNews', ['ui.router']);
+
+app.config([
+  '$stateProvider',
+  '$urlRouterProvider',
+  function($stateProvider, $urlRouterProvider) {
+    $stateProvider.state('home', {
+      url: '/home',
+      templateUrl: '/home.html',
+      controller: 'MainCtrl'
+    }).state('posts', {
+      url: '/posts/{id}',
+      templateUrl: '/posts.html',
+      controller: 'PostsCtrl'
+    });
+    $urlRouterProvider.otherwise('home');
+  }]);
 
 app.controller('MainCtrl', [
   '$scope', 'posts',
@@ -10,7 +26,11 @@ app.controller('MainCtrl', [
       $scope.posts.push({
         title: $scope.title,
         link: $scope.link,
-        upvotes: 0
+        upvotes: 0,
+        comments: [
+          {author: 'Joe', body: 'Cool post!', upvotes: 0},
+          {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0}
+        ]
       });
       $scope.title = '';
       $scope.link = '';
@@ -19,14 +39,27 @@ app.controller('MainCtrl', [
       post.upvotes += 1;
     }
   }]);
+
+  app.controller('PostsCtrl', [
+    '$scope',
+    '$stateParams',
+    'posts',
+    function($scope, $stateParams, posts){
+      $scope.post = posts.posts[$stateParams.id];
+
+      $scope.addComment = function(){
+        if($scope.body === '') { return; }
+        $scope.post.comments.push({
+          body: $scope.body,
+          author: 'user',
+          upvotes: 0
+        });
+        $scope.body = '';
+      };
+    }]);
+
   app.factory('posts', [function(){
     var o = {
-      posts: [
-        {title: 'post 1', upvotes: 23},
-        {title: 'post 2', upvotes: 55},
-        {title: 'post 3', upvotes: 11},
-        {title: 'post 4', upvotes: 41},
-        {title: 'post 5', upvotes: 36}
-      ]};
+      posts: []};
     return o;
   }])
