@@ -1,2 +1,5 @@
 #Npm
 npm-debug.log
+
+#Node
+maexample/node_modules/*
