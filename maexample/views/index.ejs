@@ -32,7 +32,7 @@
           - upvotes: {{post.upvotes}}
         </span>
         <span>
-          <a href="#/posts/{{$index}}">Comments</a>
+          <a href="#/posts/{{post._id}}">Comments</a>
         </span>
       </div>
       <form ng-submit="addPost()" style="margin-top:30px;">
@@ -72,7 +72,7 @@
 
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Comment"
-            ng-model="body"></input>
+            ng-model="body"/>
         </div>
         <button type="submit" class="btn btn-primary">Post</button>
       </form>

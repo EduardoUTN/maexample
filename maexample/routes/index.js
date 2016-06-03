@@ -40,7 +40,7 @@ router.param('post', function(req, res, next, id) {
   });
 });
 
-router.get('/posts/:post', function(req, res) {
+router.get('/posts/:post', function(req, res, next) {
   req.post.populate('comments', function(err, post) {
     if(err) { return next(err); }
 
@@ -77,7 +77,7 @@ router.param('comment', function(req, res, next, id) {
 
   query.exec(function (err, comment){
     if (err) { return(err); }
-    if (!comment) { return next(new Error('can\' find comment')); }
+    if (!comment) { return next(new Error('can\'t find comment')); }
 
     req.comment = comment;
     return next();
